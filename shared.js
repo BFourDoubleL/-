@@ -518,6 +518,16 @@
     { id: "2570-1", fiscalYear: 2570, title: "ทุนงบประมาณเงินรายได้ ปีงบประมาณ 2570 (รอบ 1)", open: "2569-10-01", close: "2569-11-30", cap: 300000, status: "open", submissions: 0 }
   ];
 
+     /* รอบทุนที่ จนท. สร้าง/แก้ไขจาก staff-calls.html — รวมเข้า CALLS ให้ทุกหน้าเห็น */
+  (function () {
+    function ld(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } }
+    var ed = ld("rgms_calls_edits", {});
+    CALLS.forEach(function (c) { if (ed[c.id]) Object.keys(ed[c.id]).forEach(function (k) { c[k] = ed[c.id][k]; }); });
+    ld("rgms_calls_custom", []).forEach(function (c) {
+      if (!CALLS.some(function (x) { return x.id === c.id; })) CALLS.push(c);
+    });
+  })();
+
   /* -----------------------------------------------------------------------
      เจ้าหน้าที่ส่วนบริหารงานวิจัย (แบ่งหน้าที่ย่อยจริงจากสไลด์ชี้แจง) — FR-66/67
      case manager (operations) มีคนเดียวทั้งหน่วยงาน ดูแลภาพรวมทุกโครงการร่วมกัน ไม่แบ่งงานเป็นรายบุคคล
